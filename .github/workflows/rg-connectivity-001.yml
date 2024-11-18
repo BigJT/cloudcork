@@ -19,6 +19,14 @@ jobs:
   # This workflow contains a single job called "build"
   resourcegroups:
     # The type of runner that the job will run on
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.MVP_SUBSCRIPTION }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
+      STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
+      CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}   
     runs-on: self-hosted
     
     name: 'rg-connectivity-001'
@@ -36,27 +44,12 @@ jobs:
     
       # Runs a single command using the runners shell
       - name: 'Terraform init'
-        id: init
-        env:
-          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.MVP_SUBSCRIPTION }}
-          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-          RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
-          STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
-          CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}          
-        run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"          
-
+        run: |
+          cd Subscriptions/jt-training-subscription/rg-connectivity-001
+          terraform init
+        
       - name: 'Terraform plan'
         id: plan
-        env:
-          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.MVP_SUBSCRIPTION }}
-          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-          RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
-          STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
-          CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}  
         run: |
           cd Subscriptions/jt-training-subscription/rg-connectivity-001
           terraform plan
