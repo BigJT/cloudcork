@@ -1,9 +1,9 @@
 name: Azure CLI Login Tests
-    env:
-      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.MVP_SUBSCRIPTION }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+env:
+  ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.MVP_SUBSCRIPTION }}
+  ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 on: 
   push:
       branches:
