@@ -44,8 +44,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: 'Terraform init'
         id: init
-        run: |
-          #cd Subscriptions/jt-training-subscription/rg-connectivity-001
           run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"          
 
       - name: 'Terraform plan'
